@@ -2,7 +2,9 @@ package com.demo.rockpaperscissors.controller;
 
 import com.demo.rockpaperscissors.model.HandChoice;
 import com.demo.rockpaperscissors.payload.GameResponse;
+import com.demo.rockpaperscissors.repositories.Player;
 import com.demo.rockpaperscissors.service.GameService;
+import com.demo.rockpaperscissors.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,18 @@ public class GameRestController {
     @Autowired
     private GameService gameService;
 
+    @Autowired
+    private PlayerService playerService;
+
     @PostMapping("/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public GameResponse playGame(@RequestBody HandChoice handChoice){
+    @ResponseStatus(HttpStatus.OK)
+    public GameResponse playGame(@RequestParam("handChoice") HandChoice handChoice){
         //TODO add authentication for identifying user
-        return gameService.playGame(handChoice);
+        Player player = playerService.getPlayer("andrew");
+        GameResponse gameResponse = gameService.playGame(handChoice);
+        System.out.println(gameResponse);
+        player.addResult(gameResponse.getResult());
+        playerService.updatePlayer(player);
+        return gameResponse;
     }
 }

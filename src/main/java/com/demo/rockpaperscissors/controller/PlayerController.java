@@ -3,7 +3,6 @@ package com.demo.rockpaperscissors.controller;
 import com.demo.rockpaperscissors.dto.PlayerDTO;
 import com.demo.rockpaperscissors.payload.NewPlayerRequest;
 import com.demo.rockpaperscissors.payload.NewPlayerResponse;
-import com.demo.rockpaperscissors.repositories.Player;
 import com.demo.rockpaperscissors.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +30,12 @@ public class PlayerController {
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public PlayerDTO getPlayerStats(@RequestParam String playerName) {
-        return playerService.getPlayer(playerName);
+        return playerService.getPlayerDTO(playerName);
     }
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<PlayerDTO> getAllPlayersStats() {
-        return playerService.getAllPlayers();
+        return playerService.getAllPlayerDTOs();
     }
 }

@@ -11,5 +11,6 @@ public class PlayerDTO {
     private Integer gamesPlayed;
     private Integer gamesWon;
     private Integer gamesLost;
+    private Integer gamesDrawn;
     private Float winRatio;
 }

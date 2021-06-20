@@ -36,13 +36,21 @@ public class PlayerService {
                 .build();
     }
 
-    public PlayerDTO getPlayer(String playerName) {
-        Player player = playerRepository.findByPlayerName(playerName);
-        //TODO throw PlayerNotFoundException
+    public PlayerDTO getPlayerDTO(String playerName) {
+        Player player = getPlayer(playerName);
         return convertPlayerToPlayerDTO(player);
     }
 
-    public List<PlayerDTO> getAllPlayers() {
+    public Player getPlayer(String playerName) {
+        //TODO throw PlayerNotFoundException
+        return playerRepository.findByPlayerName(playerName);
+    }
+
+    public void updatePlayer(Player player) {
+        playerRepository.save(player);
+    }
+
+    public List<PlayerDTO> getAllPlayerDTOs() {
         return playerRepository.findAll()
                 .stream()
                 .map(this::convertPlayerToPlayerDTO)
