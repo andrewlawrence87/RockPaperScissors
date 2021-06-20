@@ -1,11 +1,15 @@
 package com.demo.rockpaperscissors.repositories;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Document(collection = "players")
 public class Player {
     @Indexed
@@ -20,5 +24,14 @@ public class Player {
 
     public void calculateWinRatio() {
         winRatio = Float.valueOf(gamesWon) / Float.valueOf(gamesLost);
+    }
+
+    public Player(String playerName, String playerPassword){
+        this.playerName = playerName;
+        this.playerPassword = playerPassword;
+        this.gamesPlayed = 0;
+        this.gamesWon = 0;
+        this.gamesLost = 0;
+        this.winRatio = 0.0f;
     }
 }

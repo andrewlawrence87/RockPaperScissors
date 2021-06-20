@@ -1,6 +1,8 @@
 package com.demo.rockpaperscissors.controller;
 
+import com.demo.rockpaperscissors.dto.PlayerDTO;
 import com.demo.rockpaperscissors.payload.NewPlayerRequest;
+import com.demo.rockpaperscissors.payload.NewPlayerResponse;
 import com.demo.rockpaperscissors.repositories.Player;
 import com.demo.rockpaperscissors.service.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -19,25 +21,22 @@ public class PlayerController {
     @Autowired
     PlayerService playerService;
 
-    @PostMapping()
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createNewPlayer(@RequestBody NewPlayerRequest newPlayerRequest) {
+    public NewPlayerResponse createNewPlayer(@RequestBody NewPlayerRequest newPlayerRequest) {
         //TODO check if additional validation required
-        playerService.createNewPlayer(newPlayerRequest);
-        return PLAYER_CREATION_SUCCESS_MESSAGE;
+        return playerService.createNewPlayer(newPlayerRequest);
     }
 
-    @GetMapping()
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    public Player getPlayerStats(@RequestBody String playerName) {
-        //TODO remove password from response
+    public PlayerDTO getPlayerStats(@RequestParam String playerName) {
         return playerService.getPlayer(playerName);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<Player> getAllPlayersStats() {
-        //TODO remove password from response
+    public List<PlayerDTO> getAllPlayersStats() {
         return playerService.getAllPlayers();
     }
 }

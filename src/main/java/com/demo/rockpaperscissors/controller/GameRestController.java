@@ -16,7 +16,7 @@ public class GameRestController {
     @Autowired
     private GameService gameService;
 
-    @PostMapping()
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public GameResponse playGame(@RequestBody HandChoice handChoice){
         //TODO add authentication for identifying user
